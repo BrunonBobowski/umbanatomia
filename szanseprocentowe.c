@@ -5,74 +5,84 @@
 
 #define BAZA 1000
 #define PYTANIA 25
-#define NAZALICZNIE 12
-#define CONS 1000
+#define NAZALICZNIE 45
+#define ILOŚĆSYMULACJI 100
 
-static int tablica[1001] = {0};
-static int trafione[1001] = {0};
-static int ilezdanychnacons[1001] = {0};
+static int test[BAZA + 1] = {0};
+static int student[BAZA + 1] = {0};
+static int ilezdanychnacons[BAZA + 1] = {0};
 
-static int *losowanie_kartkówki(int n) {
+static int * losowanie_testu(int n) {
     int i = 1;
     while (i <= n) {
         int losowe = rand() % BAZA + 1;
-        if (tablica[losowe] == 0) {
-            tablica[losowe] = 1;
+        if (test[losowe] == 0) {
+            test[losowe] = 1;
             i++;
         }
     }
-    return tablica;
+    return test;
 }
 
-static int  * trafianie(int n) {
-    int i = 1;
+static int *czyszczenie_testu(void) {
+    for (int i=0; i<=BAZA; i++) {
+        test[i] = 0;
+    }
+    return test;
+}
+
+static int  * symulacja_rozwiązania(int n) {
+    int i=1;
     while (i <= n) {
         int losowe = rand() % BAZA + 1;
-        if (trafione[losowe] == 0) {
-            trafione[losowe] = 1;
+        if (student[losowe] == 0) {
+            student[losowe] = 1;
             i++;
         }
     }
-    return trafione;
+    return student;
 }
 
-static int sprawdzanietrafienia(void) {
-    int iletrafionych = 0;
+static int * czyszczenie_studenta(void) {
+    for (int i=0; i<=BAZA; i++) {
+        student[i] = 0;
+    }
+    return student;
+}
+
+static int sprawdzanie_wspólnych(void) {
+    int ile_wspólnych = 0;
     for (int i=1; i<BAZA; i++) {
-        if (trafione[i] == 1 && tablica[i] ==1) {
-            iletrafionych++;
+        if (student[i] == 1 && test[i] ==1) {
+            ile_wspólnych++;
         }
     }
 
-    return iletrafionych;
+    return ile_wspólnych;
 }
 
-static int *czyszczenie1(void) {
-    for (int i=0; i<=BAZA; i++) {
-        trafione[i] = 0;
+static int oblicz_ile_pkt_na_zalicznie(void) {
+    int pkt_na_zaliczenie = 0;
+    while (pkt_na_zaliczenie * 100 <= NAZALICZNIE * PYTANIA) {
+        pkt_na_zaliczenie++;
     }
-    return trafione;
+    
+    return pkt_na_zaliczenie;
 }
 
-static int *czyszczenie2(void) {
-    for (int i=0; i<=BAZA; i++) {
-        tablica[i] = 0;
-    }
-    return tablica;
-}
 int main(void) {
     srand((unsigned) time(NULL));
     for (int i=0; i<=BAZA; i++) {
         int licznik = 0;
-        for (int j=0; j<CONS; j++) {
-            losowanie_kartkówki(PYTANIA);
-            trafianie(i);
-            int s = sprawdzanietrafienia();
-            if (s >= 16) {
+        for (int j=0; j<ILOŚĆSYMULACJI; j++) {
+            losowanie_testu(PYTANIA);
+            symulacja_rozwiązania(i);
+            int s = sprawdzanie_wspólnych();
+            if (sprawdzanie_wspólnych() >= oblicz_ile_pkt_na_zalicznie()) {
                 licznik++;
             }
-            czyszczenie1();
-            czyszczenie2();
+            czyszczenie_testu();
+            czyszczenie_studenta();
         }
         ilezdanychnacons[i] = licznik;
         printf("%d\n",ilezdanychnacons[i]);
