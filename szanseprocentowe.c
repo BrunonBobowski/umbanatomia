@@ -93,7 +93,5 @@ int main(void) {
         float pom = (float) ilestudentówzdało[i] / 10;
         float znane = (float) i / 10;
         printf("Przerobienie %0.1f%% bazy - %g%% szans na zdanie\n", znane, pom);
-        //printf do excela
-        //printf("%d\n", ilestudentówzdało[i]);
     }
 }
