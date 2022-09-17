@@ -6,11 +6,11 @@
 #define BAZA 1000
 #define PYTANIA 25
 #define PROCENTNAZALICZNIE 45
-#define ILOŚĆSYMULACJI 100
+#define ILOŚĆSYMULACJI 1000
 
 static int test[BAZA + 1] = {0};
 static int student[BAZA + 1] = {0};
-static int ilezdanychnacons[BAZA + 1] = {0};
+static int ilestudentówzdało[BAZA + 1] = {0};
 
 static int *losowanie_testu(int n) {
     int i = 1;
@@ -72,6 +72,11 @@ static int oblicz_ile_pkt_na_zalicznie(void) {
 
 int main(void) {
     srand((unsigned) time(NULL));
+    printf("Dla danych:\n");
+    printf("Ilość pytań w bazie: %d\n", BAZA);
+    printf("Ilość pytań na teście: %d\n", PYTANIA);
+    printf("Procent na zdanie testu: %d%%\n",PROCENTNAZALICZNIE);
+    printf("Ilość przeprowadzonych symulacji: %d\n", ILOŚĆSYMULACJI * 1000);
     for (int i=0; i<=BAZA; i++) {
         int licznik = 0;
         for (int j=0; j<ILOŚĆSYMULACJI; j++) {
@@ -84,7 +89,11 @@ int main(void) {
             czyszczenie_testu();
             czyszczenie_studenta();
         }
-        ilezdanychnacons[i] = licznik;
-        printf("%d\n",ilezdanychnacons[i]);
+        ilestudentówzdało[i] = licznik;
+        float pom = (float) ilestudentówzdało[i] / 10;
+        float znane = (float) i / 10;
+        printf("Przerobienie %0.1f%% bazy - %g%% szans na zdanie\n", znane, pom);
+        //printf do excela
+        //printf("%d\n", ilestudentówzdało[i]);
     }
 }
