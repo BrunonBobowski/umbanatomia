@@ -5,7 +5,7 @@
 
 #define BAZA 1000
 #define PYTANIA 25
-#define NAZALICZNIE 45
+#define PROCENTNAZALICZNIE 45
 #define ILOŚĆSYMULACJI 100
 
 static int test[BAZA + 1] = {0};
@@ -63,7 +63,7 @@ static int sprawdzanie_wspólnych(void) {
 
 static int oblicz_ile_pkt_na_zalicznie(void) {
     int pkt_na_zaliczenie = 0;
-    while (pkt_na_zaliczenie * 100 <= NAZALICZNIE * PYTANIA) {
+    while (pkt_na_zaliczenie * 100 <= PROCENTNAZALICZNIE * PYTANIA) {
         pkt_na_zaliczenie++;
     }
     
