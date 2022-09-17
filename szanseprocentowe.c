@@ -12,7 +12,7 @@ static int test[BAZA + 1] = {0};
 static int student[BAZA + 1] = {0};
 static int ilezdanychnacons[BAZA + 1] = {0};
 
-static int * losowanie_testu(int n) {
+static int *losowanie_testu(int n) {
     int i = 1;
     while (i <= n) {
         int losowe = rand() % BAZA + 1;
@@ -31,7 +31,7 @@ static int *czyszczenie_testu(void) {
     return test;
 }
 
-static int  * symulacja_rozwiązania(int n) {
+static int  *symulacja_rozwiązania(int n) {
     int i=1;
     while (i <= n) {
         int losowe = rand() % BAZA + 1;
@@ -43,7 +43,7 @@ static int  * symulacja_rozwiązania(int n) {
     return student;
 }
 
-static int * czyszczenie_studenta(void) {
+static int *czyszczenie_studenta(void) {
     for (int i=0; i<=BAZA; i++) {
         student[i] = 0;
     }
