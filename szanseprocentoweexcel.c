@@ -85,6 +85,7 @@ int main(void) {
             czyszczenie_studenta();
         }
         ilestudentówzdało[i] = licznik;
-        printf("%d\n", ilestudentówzdało[i]);
+        float pom = (float) ilestudentówzdało[i] / 10;
+        printf("%g\n", pom);
     }
 }
